@@ -46,30 +46,23 @@
             Console.WriteLine(new string('*', 80));
 
             Console.WriteLine("5.Feladat");
-            Console.WriteLine("Adjon meg egy várost: ");
-            string varos = Console.ReadLine();
+            string varos;
             bool containsCity = false;
+
             do
             {
-                if (cities.Select(x => x.CityName).Contains(varos))
+                Console.WriteLine("Adjon meg egy várost: ");
+                varos = Console.ReadLine();
+                containsCity = cities.Any(x => x.CityName == varos);
+                if (!containsCity)
                 {
-                   containsCity = true;
+                    Console.WriteLine("A megadott város nem létezik, próbálja újra!");
                 }
-            }
-            while (!containsCity);
+            } while (!containsCity);
 
-            List<int> evek = new();
-            foreach (var item in cities)
-            {
-                if (item.CityName == varos)
-                {
-                    evek.Add(item.Y2010);
-                    evek.Add(item.Y2020);
-                    evek.Add(item.Y2030);
-                    evek.Add(item.Y2040);
-                    evek.Add(item.Y2050);
-                }
-            }
+            City selectedCity = cities.First(x => x.CityName.Equals(varos, StringComparison.OrdinalIgnoreCase));
+            List<int> evek = new List<int> { selectedCity.Y2010, selectedCity.Y2020, selectedCity.Y2030, selectedCity.Y2040, selectedCity.Y2050 };
+
             if (methods.IsContinuousGrowing(evek))
             {
                 Console.WriteLine("Ennek a városnak a lakossága folyamatosan növekedett!");
@@ -77,6 +70,28 @@
             else
             {
                 Console.WriteLine("Ennek a városnak nem növekedett folyamatosan a lakossága!");
+            }
+
+            Console.WriteLine(new string('*', 80));
+
+            Console.WriteLine("6.Feladat");
+            List<City> bigCities = cities.Where(c => c.Y2020 > 1000000).ToList();
+            methods.SaveToCSV("bigCities.csv", bigCities);
+            Console.WriteLine("A 2020-ban 1 millió főnél nagyobb népességgel rendelkező városok elmentve a bigCities.csv fájlba.");
+
+
+            Console.WriteLine(new string('*', 80));
+
+            Console.WriteLine("7.Feladat");
+            var decreasingCities = cities
+                .Where(c => c.Y2050 < c.Y2010)
+                .Select(c => new { c.CityName, PopulationChange = c.Y2010 - c.Y2050 })
+                .OrderBy(c => c.PopulationChange)
+                .ToList();
+
+            foreach (var city in decreasingCities)
+            {
+                Console.WriteLine($"{city.CityName}: {city.PopulationChange}");
             }
         }
     }   

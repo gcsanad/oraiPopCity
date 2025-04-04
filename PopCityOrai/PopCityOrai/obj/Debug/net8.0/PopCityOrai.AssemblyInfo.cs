@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PopCityOrai")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f42b6d7f792176f7c421bdb7486b26a2a214240e")]
 [assembly: System.Reflection.AssemblyProductAttribute("PopCityOrai")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PopCityOrai")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

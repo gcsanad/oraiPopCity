@@ -17,12 +17,14 @@ namespace PopCityOrai
 
         public bool IsContinuousGrowing(List<int> populationDatas)
         {
-            if (populationDatas[0] < populationDatas[1] && populationDatas[1] < populationDatas[2] && populationDatas[2] < populationDatas[3] && populationDatas[3] < populationDatas[4] && populationDatas[4] < populationDatas[5])
+            for (int i = 0; i < populationDatas.Count - 1; i++)
             {
-                return true;
+                if (populationDatas[i] >= populationDatas[i + 1])
+                {
+                    return false;
+                }
             }
-            else
-            return false;
+            return true;
         }
 
         public void LoadFromCSV(string path)
@@ -39,7 +41,7 @@ namespace PopCityOrai
 
         public void SaveToCSV(string path, List<City> cities, string charCode = "UTF-8")
         {
-            
+            File.WriteAllLines(path, cities.Select(x => x.ToString()), Encoding.GetEncoding(charCode));
         }
 
         public List<City> Top10City(int year)
@@ -48,25 +50,19 @@ namespace PopCityOrai
             switch (year)
             {
                 case 2010:
-
-                    topCities = cityLista.OrderByDescending(x => x.Y2010).Take(10).ToList();
-                    
-                    return topCities;
+                    return cityLista.OrderByDescending(x => x.Y2010).Take(10).ToList();
                 case 2020:
-                    topCities = cityLista.OrderByDescending(x => x.Y2020).Take(10).ToList();
-                    return topCities;
+                    return cityLista.OrderByDescending(x => x.Y2020).Take(10).ToList();
                 case 2030:
-                    topCities = cityLista.OrderByDescending(x => x.Y2030).Take(10).ToList();
-                    return topCities;
+                    return cityLista.OrderByDescending(x => x.Y2030).Take(10).ToList();
                 case 2040:
-                    topCities = cityLista.OrderByDescending(x => x.Y2040).Take(10).ToList();
-                    return topCities;
+                    return cityLista.OrderByDescending(x => x.Y2040).Take(10).ToList();
                 case 2050:
-                    topCities = cityLista.OrderByDescending(x => x.Y2050).Take(10).ToList();
-                    return topCities;
+                    return cityLista.OrderByDescending(x => x.Y2050).Take(10).ToList();
                 default:
-                    return topCities;
+                    throw new ArgumentException("Nem létező év lett megadva!");
             }
         }
+        
     }
 }

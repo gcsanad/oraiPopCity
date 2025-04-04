@@ -36,5 +36,14 @@ namespace PopCityOrai
         public int Y2030 { get => y2030; set => y2030 = value; }
         public int Y2040 { get => y2040; set => y2040 = value; }
         public int Y2050 { get => y2050; set => y2050 = value; }
+
+
+        public override string ToString()
+        {
+            return $"{cityCode};{cityName};{y2010};{y2020};{y2030};{y2040};{y2050}";
+        }
+
     }
+
+    
 }
